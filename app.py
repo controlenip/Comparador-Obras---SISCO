@@ -125,6 +125,36 @@ div[data-testid="stToolbar"], [data-testid="stDecoration"], #MainMenu, footer{di
     border-bottom:0!important;
 }
 
+
+/* V7: elimina a barra colorida padrao do Streamlit sem alterar o botao ativo. */
+[data-testid="stTabs"] :is([data-baseweb="tab-highlight"],[data-baseweb="tab-border"],div[data-testid="stTabHighlight"],div[data-testid="stTabBorder"]),
+:is([role="tablist"],[data-baseweb="tab-list"]) > :is([data-baseweb="tab-highlight"],[data-baseweb="tab-border"]),
+.stTabs :is([data-baseweb="tab-highlight"],[data-baseweb="tab-border"]){
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    background:transparent!important;
+    background-color:transparent!important;
+    border:0!important;
+    height:0!important;
+    min-height:0!important;
+    box-shadow:none!important;
+}
+:is([role="tablist"],[data-baseweb="tab-list"]) :is([role="tab"],[data-baseweb="tab"]),
+:is([role="tablist"],[data-baseweb="tab-list"]) :is([role="tab"],[data-baseweb="tab"])[aria-selected="true"]{
+    border-bottom-width:1px!important;
+    border-bottom-style:solid!important;
+    background-image:none!important;
+    text-decoration:none!important;
+}
+:is([role="tablist"],[data-baseweb="tab-list"]) :is([role="tab"],[data-baseweb="tab"])::before,
+:is([role="tablist"],[data-baseweb="tab-list"]) :is([role="tab"],[data-baseweb="tab"])::after{
+    content:none!important;
+    display:none!important;
+    background:none!important;
+    box-shadow:none!important;
+}
+
 [data-testid="stFileUploader"]{border:1px solid #d5e3ed!important;border-radius:9px;background:#fff;padding:6px}
 [data-testid="stFileUploaderDropzone"]{padding:9px!important;min-height:68px!important}
 [data-testid="stFileUploaderDropzoneInstructions"]{font-size:11px!important}
