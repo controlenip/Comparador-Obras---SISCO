@@ -1,29 +1,36 @@
 # NIP | Comparador de Levantamentos
 
-Aplicacao Streamlit para comparar **dois snapshots** da planilha `Levantamentos`, identificar obras novas com data de recebimento em **2026** (ou outro ano selecionado), distinguir alteracoes e exportar Excel com as linhas completas.
+Aplicação Streamlit com layout inspirado no Dashboard NIP: faixa de cabeçalho azul-marinho com logomarca, filtros operacionais à esquerda e navegação horizontal por abas.
 
-## Como publicar no GitHub e Streamlit Cloud
-1. Crie um repositorio privado (recomendado para dados operacionais).
-2. Envie todos os arquivos **incluindo `app.py`, `comparador.py`, `requirements.txt`, `.streamlit/config.toml` e `assets/logo_nip.png`**.
-3. Em [share.streamlit.io](https://share.streamlit.io/) clique em **Create app** e selecione o repositorio, branch `main` e arquivo principal `app.py`.
-4. Execute e envie **primeiro a planilha anterior** e **depois a planilha atual**. Escolha o ano (padrao 2026).
-5. Exporte o Excel gerado. Os arquivos fornecidos ao aplicativo nao sao salvos no repositorio.
+## Arquivo principal
 
-### Regras
-- Coluna **A** (`ID do levantamento`) e identificador principal. Se A estiver vazia, chave secundaria **F + O** (`Nota CCS` + `Tipo de Projeto(PI)`). Se A e F estiverem vazias, a linha e sinalizada.
-- A comparacao usa a **base anterior completa** como referencia, mesmo quando AA nela for de outro ano. Isso evita falsos entrantes.
-- So e considerado **entrante** um registro que nao existe na base anterior, existe na atual e cuja **AA** (`Recebimento(data criacao)`) esteja no ano escolhido.
-- Alteracoes nos campos A/F/O/AA em registros ja identificados nao contam como novas obras. Quando o ID A muda, nao ha como identificar com certeza que seja a mesma obra; revise as inconsistencias.
-- Duplicatas pelo identificador sao contabilizadas uma so vez e sinalizadas.
-- O Excel exporta todas as colunas originais dos entrantes e abas de auditoria.
-- A media diaria e calculada a partir das **datas AA dos entrantes identificados**, incluindo dias sem entradas dentro da janela observada. A projecao padrao representa **30 dias** e e indicativa, nao uma previsao estatistica robusta nem o volume total de obras do mes. Um intervalo de snapshots muito curto pode distorcer a estimativa.
-- A AA e a data informada no SISCO/planilha, **nao** necessariamente a data em que a linha passou a aparecer entre os dois arquivos.
+`app.py` — definir como **Main file path** no Streamlit Community Cloud.
 
-### Uso local
-```bash
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
-```
+## Publicação
 
-### Seguranca
-Nao coloque planilhas reais no repositorio. A analise ocorre na sessao Streamlit; se hospedar em Streamlit Community Cloud, os uploads passam pela infraestrutura do provedor. Configure controle de acesso se forem dados confidenciais.
+1. Criar ou abrir o repositório no GitHub.
+2. Enviar `app.py`, `comparador.py`, `requirements.txt`, `.streamlit/config.toml` e a pasta `assets/` (manter a estrutura).
+3. No Streamlit Community Cloud, selecionar repositório e branch `main`, apontando para `app.py`.
+4. Carregar a planilha anterior e a atual nos filtros à esquerda.
+5. Consultar Dashboard, Entrantes por dia, Obras entrantes, Auditoria e Exportação.
+
+## Regras da comparação
+
+- Coluna **A**: ID do levantamento, identificador principal.
+- Coluna **F**: Nota CCS, conferência de continuidade.
+- Coluna **O**: tipo de projeto, conferência de continuidade.
+- Coluna **AA**: data do recebimento, filtro de ano (padrão 2026).
+- Uma obra é entrante quando é encontrada na base atual mas não na anterior, e sua data AA é do ano escolhido.
+- Se faltar ID em A, usa-se F+O como chave de contingência. Quando F+O é único nas duas bases, também identifica mudanças de ID sem tratá-las como entrantes.
+- Datas inválidas, duplicidades e novas obras fora do ano são apresentadas na auditoria.
+- Projeção mensal estimada a partir dos entrantes observados numa janela de até 30 dias (inclusive dias sem registros). É uma extrapolação, não uma previsão estatística robusta nem o histórico total do mês.
+
+## Testes
+
+`python -m pip install -r requirements.txt pytest`
+
+`python -m pytest -q tests/test_comparador.py`
+
+## Privacidade
+
+Os arquivos enviados são processados pela sessão Streamlit em execução; não há integração de envio de conteúdo a APIs externas no código do comparador. Evite colocar planilhas com dados de clientes no repositório público.
