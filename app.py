@@ -41,9 +41,40 @@ div[data-testid="stToolbar"], [data-testid="stDecoration"], #MainMenu, footer{di
 
 .nip-tabs-wrap{background:#f7fafc;border:1px solid #d3e2ec;border-radius:8px;padding:7px;margin-bottom:12px}
 [data-testid="stTabs"]{background:transparent}
-[data-testid="stTabs"] [role="tablist"]{background:transparent;border:none!important;border-radius:0;padding:0;gap:7px;flex-wrap:wrap;height:auto!important;margin-bottom:4px}
-[data-testid="stTabs"] button[role="tab"]{background:#fff;border:1px solid #bad0de;border-radius:6px;color:#173a56;padding:8px 12px;height:37px;font-weight:760;font-size:12px;box-shadow:none}
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"]{background:#0d7785!important;border-color:#0d7785!important;color:#fff!important}
+[data-testid="stTabs"] [role="tablist"]{background:transparent;border:none!important;border-radius:0;padding:0;gap:10px;flex-wrap:wrap;height:auto!important;margin-bottom:4px}
+[data-testid="stTabs"] button[role="tab"]{
+    background:linear-gradient(180deg,#ffffff 0%,#f6f9fc 100%)!important;
+    border:1px solid #a9c4d6!important;
+    border-radius:8px!important;
+    color:#173a56!important;
+    padding:8px 14px!important;
+    height:38px!important;
+    font-weight:760!important;
+    font-size:12px!important;
+    box-shadow:0 1px 2px rgba(18,60,89,.08)!important;
+    transition:all .18s ease!important;
+}
+[data-testid="stTabs"] button[role="tab"]:hover{
+    border-color:#6e97ad!important;
+    color:#143b54!important;
+    transform:translateY(-1px);
+    box-shadow:0 3px 8px rgba(20,59,84,.10)!important;
+}
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"]{
+    background:#143b54!important;
+    border-color:#143b54!important;
+    color:#ffffff!important;
+    box-shadow:0 4px 10px rgba(20,59,84,.22)!important;
+}
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] p,
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] span{
+    color:#ffffff!important;
+}
+[data-testid="stTabs"] button[role="tab"] p,
+[data-testid="stTabs"] button[role="tab"] span{
+    color:inherit!important;
+    font-weight:inherit!important;
+}
 [data-testid="stTabs"] [data-baseweb="tab-highlight"],[data-testid="stTabs"] [data-baseweb="tab-border"]{display:none!important}
 
 [data-testid="stFileUploader"]{border:1px solid #d5e3ed!important;border-radius:9px;background:#fff;padding:6px}
