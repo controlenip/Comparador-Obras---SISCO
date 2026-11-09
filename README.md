@@ -34,3 +34,6 @@ Aplicação Streamlit com layout inspirado no Dashboard NIP: faixa de cabeçalho
 ## Privacidade
 
 Os arquivos enviados são processados pela sessão Streamlit em execução; não há integração de envio de conteúdo a APIs externas no código do comparador. Evite colocar planilhas com dados de clientes no repositório público.
+
+## Layout V5 - navegacao
+Os cinco botoes de navegacao seguem os botoes do dashboard original: 34 px de altura, 8 px de espaco, 7 px de raio e borda azul clara. A aba ativa e identificada automaticamente pelo Streamlit (`aria-selected`) e exibida em azul-marinho; ao alternar, a anterior volta ao fundo branco.

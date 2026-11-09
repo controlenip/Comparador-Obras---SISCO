@@ -1,4 +1,4 @@
-"""Comparador de Levantamentos - dashboard Streamlit."""
+"""NIP | Comparador de Levantamentos - dashboard Streamlit."""
 from __future__ import annotations
 import base64
 import html
