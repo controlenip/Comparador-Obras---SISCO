@@ -39,73 +39,91 @@ div[data-testid="stToolbar"], [data-testid="stDecoration"], #MainMenu, footer{di
 .nip-sub{font-size:11px;color:var(--muted);margin:6px 0 10px;line-height:1.35}
 .nip-rail-foot{border-top:1px solid #d9e5ec;padding-top:16px;margin-top:18px;color:#7b909c;font-size:11px;line-height:1.4}
 
-/* Navegacao fiel ao dashboard NIP: a selecao e gerenciada pelo st.tabs. */
-[data-testid="stTabs"]{background:transparent!important;min-width:0}
-[data-testid="stTabs"] [role="tablist"]{
+/* Botoes de navegacao: seletores globais independentes da versao Streamlit/BaseWeb. */
+:where([data-testid="stTabs"], .stTabs, [data-baseweb="tab-list"]){min-width:0!important}
+:is([data-baseweb="tab-list"],[role="tablist"]){
     display:flex!important;
     align-items:center!important;
     flex-wrap:wrap!important;
     gap:8px!important;
     height:auto!important;
-    min-height:53px!important;
-    margin:0 0 13px!important;
+    min-height:54px!important;
+    margin:0 0 14px!important;
     padding:9px 11px!important;
     background:#f6f9fc!important;
     border:1px solid #c9dce8!important;
     border-radius:7px!important;
-    box-shadow:0 1px 2px rgba(16,48,77,.035)!important;
+    box-shadow:0 1px 2px rgba(16,48,77,.04)!important;
 }
-[data-testid="stTabs"] [role="tablist"] button[role="tab"]{
+/* BaseWeb cria elementos de aba em div OU button conforme a versao. */
+:is([data-baseweb="tab"],[role="tab"]){
     display:inline-flex!important;
     align-items:center!important;
     justify-content:center!important;
     flex:0 0 auto!important;
     box-sizing:border-box!important;
     min-width:0!important;
-    min-height:34px!important;
-    height:34px!important;
+    min-height:35px!important;
+    height:35px!important;
     margin:0!important;
     padding:0 14px!important;
     border:1px solid #a5c4d6!important;
     border-radius:7px!important;
     background:#fff!important;
+    background-color:#fff!important;
     color:#17365d!important;
-    font-size:12px!important;
-    font-weight:700!important;
-    line-height:1!important;
+    -webkit-text-fill-color:#17365d!important;
+    font:700 12px/1.1 Arial,sans-serif!important;
     white-space:nowrap!important;
-    box-shadow:none!important;
-    transition:background-color .14s ease,border-color .14s ease,color .14s ease,box-shadow .14s ease!important;
-    transform:none!important;
+    box-shadow:0 1px 2px rgba(16,48,77,.05)!important;
+    transition:background-color .14s ease,border-color .14s ease,color .14s ease!important;
     text-decoration:none!important;
 }
-[data-testid="stTabs"] [role="tablist"] button[role="tab"] :is(p,span){
+:is([data-baseweb="tab"],[role="tab"]) :is(p,span,div){
     color:inherit!important;
+    -webkit-text-fill-color:inherit!important;
     font-size:inherit!important;
     font-weight:inherit!important;
     line-height:inherit!important;
     margin:0!important;
 }
-[data-testid="stTabs"] [role="tablist"] button[role="tab"]:not([aria-selected="true"]):hover{
+:is([data-baseweb="tab"],[role="tab"]):not([aria-selected="true"]):hover{
     background:#eaf2f7!important;
+    background-color:#eaf2f7!important;
     border-color:#7da6bd!important;
     color:#123b56!important;
 }
-[data-testid="stTabs"] [role="tablist"] button[role="tab"][aria-selected="true"],
-[data-testid="stTabs"] [role="tablist"] button[role="tab"][aria-selected="true"]:hover,
-[data-testid="stTabs"] [role="tablist"] button[role="tab"][aria-selected="true"]:focus{
+:is([data-baseweb="tab"],[role="tab"])[aria-selected="true"],
+:is([data-baseweb="tab"],[role="tab"])[aria-selected="true"]:hover,
+:is([data-baseweb="tab"],[role="tab"])[aria-selected="true"]:focus{
     background:#143b54!important;
+    background-color:#143b54!important;
     border-color:#143b54!important;
     color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
     box-shadow:0 2px 5px rgba(20,59,84,.18)!important;
-    transform:none!important;
 }
-[data-testid="stTabs"] [role="tablist"] button[role="tab"]:focus-visible{
+:is([data-baseweb="tab"],[role="tab"])[aria-selected="true"] :is(p,span,div){
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+}
+:is([data-baseweb="tab"],[role="tab"]):focus-visible{
     outline:2px solid #56afc8!important;
     outline-offset:2px!important;
 }
+/* Remover linha/indicador padrao (vermelho) das abas do Streamlit. */
+[data-baseweb="tab-highlight"],[data-baseweb="tab-border"],
 [data-testid="stTabs"] [data-baseweb="tab-highlight"],
-[data-testid="stTabs"] [data-baseweb="tab-border"]{display:none!important}
+[data-testid="stTabs"] [data-baseweb="tab-border"]{
+    display:none!important;
+    opacity:0!important;
+    height:0!important;
+    border:0!important;
+}
+:is([data-baseweb="tab"],[role="tab"])::before,
+:is([data-baseweb="tab"],[role="tab"])::after{
+    border-bottom:0!important;
+}
 
 [data-testid="stFileUploader"]{border:1px solid #d5e3ed!important;border-radius:9px;background:#fff;padding:6px}
 [data-testid="stFileUploaderDropzone"]{padding:9px!important;min-height:68px!important}
